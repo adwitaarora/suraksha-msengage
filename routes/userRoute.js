@@ -21,12 +21,12 @@ router.get('/signup', (req, res) => {
 
 router.get('/dashboard', isLoggedIn, asyncCatch(async (req, res) => {
     const reports = await Report.find({ isClosed: false }).sort({ priority: 1 });
-    res.render('user/dashboard', { reports });
+    res.render('user/dashboard', { reports, caseNature: "Open", title: "Dashboard" });
 }))
 
 router.get('/solved', isLoggedIn, asyncCatch(async (req, res) => {
     const reports = await Report.find({ isClosed: true });
-    res.render('user/dashboard', { reports });
+    res.render('user/dashboard', { reports, caseNature: "Closed", title: "Solved Cases" });
 }))
 
 

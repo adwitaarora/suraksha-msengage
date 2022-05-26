@@ -15,14 +15,14 @@
             width: 100%;
         }
     </style>
-    <title>Dashboard</title>
+    <title><%= title %> </title>
 </head>
 
 <body class="vh-100 d-flex flex-column justify-content-between">
     <%- include('../partials/navbar') %>
         <section class="d-flex row h-100 mb-5 mt-3">
             <div class="col-6 m-4 h-100 overflow-auto">
-                <h1 class="m-2 text-center">Open Cases</h1>
+                <h1 class="m-2 text-center"><%= caseNature %>  Cases</h1>
                 <div class="overflow-auto">
                     <ul class="list-unstyled">
                         <% for(const report of reports) {%>
