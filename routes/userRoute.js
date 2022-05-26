@@ -32,14 +32,20 @@ router.get('/solved', isLoggedIn, asyncCatch(async (req, res) => {
 
 
 router.post('/', asyncCatch(async (req, res, next) => {
-
-    const { firstName, lastName, username, password } = req.body;
-    const user = new User({ firstName, lastName, username });
-    const registeredUser = await User.register(user, password);
-    req.logIn(registeredUser, err => {
-        if (err) return next(err);
-        res.redirect(`/user/dashboard`);
-    });
+    try {
+        const { firstName, lastName, username, password } = req.body;
+        const user = new User({ firstName, lastName, username });
+        const registeredUser = await User.register(user, password);
+        req.logIn(registeredUser, err => {
+            if (err) {
+                return next(err);
+            };
+            res.redirect(`/user/dashboard`);
+        });
+    } catch (e) {
+        req.flash('error', e.message);
+        res.redirect('/user/signup');
+    }
 
 }))
 
