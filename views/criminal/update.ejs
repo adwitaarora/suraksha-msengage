@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+    <style>
+        .nav {
+            cursor: pointer;
+        }
+
+        .nav-alt {
+            cursor: pointer;
+        }
+
+        .hidden {
+            display: none;
+        }
+    </style>
+    <title>Suspect Details</title>
+</head>
+
+<body class="vh-100 d-flex flex-column justify-content-between">
+    <%- include('../partials/navbar') %>
+        <section class="main_content m-4">
+            <h1 class="m-2 text-center display-3">Add Suspect Images</h1>
+            <div class="row">
+                <div class="col-6 p-4">
+                    <div class="row mb-5 p-2">
+                        <p class="lead">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                class="bi bi-person-lines-fill me-1" viewBox="0 0 16 16">
+                                <path
+                                    d="M6 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm-5 6s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H1zM11 3.5a.5.5 0 0 1 .5-.5h4a.5.5 0 0 1 0 1h-4a.5.5 0 0 1-.5-.5zm.5 2.5a.5.5 0 0 0 0 1h4a.5.5 0 0 0 0-1h-4zm2 3a.5.5 0 0 0 0 1h2a.5.5 0 0 0 0-1h-2zm0 3a.5.5 0 0 0 0 1h2a.5.5 0 0 0 0-1h-2z" />
+                            </svg>
+                            Suspect Name
+                        </p>
+                        <p class="h5 m-2 border p-2">
+                            <%= criminal.Sname %>
+                        </p>
+                    </div>
+                    <div class="row mb-5 p-2">
+                        <p class="lead">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                class="bi bi-person-lines-fill me-1" viewBox="0 0 16 16">
+                                <path
+                                    d="M6 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm-5 6s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H1zM11 3.5a.5.5 0 0 1 .5-.5h4a.5.5 0 0 1 0 1h-4a.5.5 0 0 1-.5-.5zm.5 2.5a.5.5 0 0 0 0 1h4a.5.5 0 0 0 0-1h-4zm2 3a.5.5 0 0 0 0 1h2a.5.5 0 0 0 0-1h-2zm0 3a.5.5 0 0 0 0 1h2a.5.5 0 0 0 0-1h-2z" />
+                            </svg>
+                            Age
+                        </p>
+                        <p class="h5 m-2 border p-2">
+                            <%= criminal.age %>
+                        </p>
+                    </div>
+                    <div class="row mb-5 p-2">
+                        <p class="lead">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                class="bi bi-person-lines-fill me-1" viewBox="0 0 16 16">
+                                <path
+                                    d="M6 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm-5 6s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H1zM11 3.5a.5.5 0 0 1 .5-.5h4a.5.5 0 0 1 0 1h-4a.5.5 0 0 1-.5-.5zm.5 2.5a.5.5 0 0 0 0 1h4a.5.5 0 0 0 0-1h-4zm2 3a.5.5 0 0 0 0 1h2a.5.5 0 0 0 0-1h-2zm0 3a.5.5 0 0 0 0 1h2a.5.5 0 0 0 0-1h-2z" />
+                            </svg>
+                            Height (cm)
+                        </p>
+                        <p class="h5 m-2 border p-2">
+                            <%= criminal.height %>
+                        </p>
+                    </div>
+                    <div class="row mb-5 p-2">
+                        <a href="/report/<%= criminal.report %>" class="col text-decoration-none text-center">
+                            <button class="btn btn-outline-primary w-50">Case Details</button>
+                        </a>
+                        <a href="/criminal/show/<%= criminal.id %>" class="col text-decoration-none text-center">
+                            <button class="btn btn-outline-primary w-50">Suspect Details</button>
+                        </a>
+                    </div>
+                </div>
+                <div class="col m-4">
+                    <div class="container">
+                        <% if(!(error && error.length)){ %>
+                            <div class="alert alert-info" role="alert">
+                                Please add 3 images for best results
+                            </div>
+                            <% }else{ %>
+                                <div class="alert alert-danger" role="alert">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="red"
+                                        class="bi bi-exclamation-triangle-fill me-2" viewBox="0 0 16 16">
+                                        <path
+                                            d="M8.982 1.566a1.13 1.13 0 0 0-1.96 0L.165 13.233c-.457.778.091 1.767.98 1.767h13.713c.889 0 1.438-.99.98-1.767L8.982 1.566zM8 5c.535 0 .954.462.9.995l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 5.995A.905.905 0 0 1 8 5zm.002 6a1 1 0 1 1 0 2 1 1 0 0 1 0-2z" />
+                                    </svg>
+                                    <%= error %>
+                                </div>
+                                <% } %>
+                                    <div class="row justify-content-md-center">
+                                        <img src="/images/placeholderImage.png"
+                                            style="max-width: 400px; max-height: 400px">
+                                        <form action="/face/post-face/<%= criminal.id %> " method="post"
+                                            enctype="multipart/form-data">
+                                            <input type="hidden" name="label" id="label" value="<%= criminal.id %>">
+                                            <div class="row justify-content-md-center">
+                                                <input type="file" class="form-control mt-3" name="face" id="face"
+                                                    multiple required class="ms-5">
+                                                <button class="btn btn-outline-primary submit m-3 w-50">Add
+                                                    Images</button>
+                                                <button class="btn btn-primary hidden loading m-3 w-50" type="button"
+                                                    disabled>
+                                                    <span class="spinner-border spinner-border-sm" role="status"
+                                                        aria-hidden="true"></span>
+                                                    Loading...
+                                                </button>
+                                            </div>
+                                        </form>
+                                    </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <%- include('../partials/footer') %>
+            <script src="/js/bootstrap.min.js"></script>
+            <script src="/js/validateForms.js"></script>
+            <script>
+                let navBrand = document.querySelector('.nav')
+                let navBrandAlt = document.querySelector('.nav-alt')
+                let submitButton = document.querySelector('.submit')
+                let loadingButton = document.querySelector('.loading')
+
+                navBrand.addEventListener('click', () => {
+                    navBrand.classList.toggle('hidden');
+                    navBrandAlt.classList.toggle('hidden');
+                })
+                navBrandAlt.addEventListener('click', () => {
+                    navBrand.classList.toggle('hidden');
+                    navBrandAlt.classList.toggle('hidden');
+                })
+                submitButton.addEventListener('click', () => {
+                    submitButton.classList.toggle('hidden');
+                    loadingButton.classList.toggle('hidden');
+                })
+            </script>
+</body>
+
+</html>

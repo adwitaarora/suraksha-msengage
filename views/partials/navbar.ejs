@@ -1,0 +1,25 @@
+<nav class="navbar navbar-expand-lg" style="background-color: #e3f2fd;">
+    <div class="container-fluid">
+        <a class="navbar-brand nav fw-bold ms-2">सुरक्षा</a>
+        <a class="navbar-brand nav-alt fw-bold ms-2 hidden">Suraksha</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <% if(!currentUser){ %>
+                <a class="nav-item nav-link" href="/user/login">Login</a>
+                <a class="nav-item nav-link" href="/user/signup">Sign Up</a>
+                <a class="nav-item nav-link" href="/tips">Add Tip</a>
+                <% } else{%>
+                    <a class="nav-item nav-link" href="/user/dashboard">Dashboard</a>
+                    <a class="nav-item nav-link" href="/report">Add Report</a>
+                    <a class="nav-item nav-link" href="/user/face">Face Scan</a>
+                    <a class="nav-item nav-link" href="/user/solved">Solved Cases</a>
+                    <a class="nav-item nav-link" href="/tips/all">Tips</a>
+                    <a class="nav-item nav-link" href="/search">Search</a>
+                    <a class="nav-item nav-link ms-auto" href="/user/logout">Log Out</a>
+                    <% } %>
+        </div>
+    </div>
+</nav>

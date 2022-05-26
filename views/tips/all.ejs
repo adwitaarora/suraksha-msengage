@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+    <script src='https://api.mapbox.com/mapbox-gl-js/v2.6.0/mapbox-gl.js'></script>
+    <link href='https://api.mapbox.com/mapbox-gl-js/v2.6.0/mapbox-gl.css' rel='stylesheet' />
+    <link rel="stylesheet" href="../css/customStyles.css">
+    <style>
+        #map {
+            height: 90%;
+            width: 100%;
+        }
+    </style>
+    <title>Tips</title>
+</head>
+
+<body class="vh-100 d-flex flex-column justify-content-between">
+    <%- include('../partials/navbar') %>
+        <!-- <div class="row">
+            <h1 class="display-4 m-4">Welcome, <%= currentUser.firstName %>
+            </h1>
+        </div> -->
+        <section class="d-flex row h-100 mb-5 mt-3">
+            <div class="col-6 m-4 h-100 overflow-auto">
+                <h1 class="m-2 text-center">Open Tips</h1>
+                <div class="overflow-auto">
+                    <ul class="list-unstyled">
+                        <% for(const report of reports) {%>
+                            <li>
+                                <div class="row m-2">
+                                    <div class="col">
+                                        <a href="/report/<%= report.id %>" class="text-decoration-none lead">
+                                            <p class="col">
+                                                <%= report.crime %>
+                                            </p>
+                                        </a>
+                                        <p>
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="green"
+                                                class="bi bi-geo-alt m-1" viewBox="0 0 16 16">
+                                                <path
+                                                    d="M12.166 8.94c-.524 1.062-1.234 2.12-1.96 3.07A31.493 31.493 0 0 1 8 14.58a31.481 31.481 0 0 1-2.206-2.57c-.726-.95-1.436-2.008-1.96-3.07C3.304 7.867 3 6.862 3 6a5 5 0 0 1 10 0c0 .862-.305 1.867-.834 2.94zM8 16s6-5.686 6-10A6 6 0 0 0 2 6c0 4.314 6 10 6 10z" />
+                                                <path
+                                                    d="M8 8a2 2 0 1 1 0-4 2 2 0 0 1 0 4zm0 1a3 3 0 1 0 0-6 3 3 0 0 0 0 6z" />
+                                            </svg>
+                                            <%= report.address %>
+                                        </p>
+                                    </div>
+                                    <div class="col d-flex flex-column align-items-center">
+                                        <% if(report.isClosed===true){ %>
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="green"
+                                                class="bi bi-check-circle-fill" viewBox="0 0 16 16">
+                                                <path
+                                                    d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z" />
+                                            </svg>
+                                            <% } else if(report.priority===1 ){ %>
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                                                    fill="red" class="bi bi-exclamation-circle-fill"
+                                                    viewBox="0 0 16 16">
+                                                    <path
+                                                        d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM8 4a.905.905 0 0 0-.9.995l.35 3.507a.552.552 0 0 0 1.1 0l.35-3.507A.905.905 0 0 0 8 4zm.002 6a1 1 0 1 0 0 2 1 1 0 0 0 0-2z" />
+                                                </svg>
+                                                <% }else if(report.priority===2 ) {%>
+                                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                                                        fill="orange" class="bi bi-exclamation-circle-fill"
+                                                        viewBox="0 0 16 16">
+                                                        <path
+                                                            d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM8 4a.905.905 0 0 0-.9.995l.35 3.507a.552.552 0 0 0 1.1 0l.35-3.507A.905.905 0 0 0 8 4zm.002 6a1 1 0 1 0 0 2 1 1 0 0 0 0-2z" />
+                                                    </svg>
+                                                    <% }else{%>
+                                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                                                            fill="yellow" class="bi bi-exclamation-circle-fill"
+                                                            viewBox="0 0 16 16">
+                                                            <path
+                                                                d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM8 4a.905.905 0 0 0-.9.995l.35 3.507a.552.552 0 0 0 1.1 0l.35-3.507A.905.905 0 0 0 8 4zm.002 6a1 1 0 1 0 0 2 1 1 0 0 0 0-2z" />
+                                                        </svg>
+                                                        <% } %>
+                                                            <a href="/tips/show/<%= report.id %>"
+                                                                class="text-decoration-none text-center pt-4">
+                                                                <button class="btn btn-outline-success">
+                                                                    Tip Details
+                                                                </button>
+                                                            </a>
+                                    </div>
+
+
+                                </div>
+                            </li>
+                            <% } %>
+                    </ul>
+                </div>
+            </div>
+            <div class="col text-center m-4">
+                <h1>Map</h1>
+                <div id="map" class="align-self-center"></div>
+            </div>
+        </section>
+        <div class="mt-5">
+            <%- include('../partials/footer') %>
+        </div>
+        <script src="/js/bootstrap.min.js"></script>
+        <!-- <script src="../js/addClusterMap.js"></script> -->
+        <!-- <script>
+            let mapToken = '<%- process.env.MAP_TOKEN%>';
+            let reports = '<%-JSON.stringify(reports)%>'
+            mapboxgl.accessToken = mapToken;
+            reports = { features: JSON.parse(reports) };
+            let map = new mapboxgl.Map({
+                container: 'map',
+                style: 'mapbox://styles/mapbox/light-v10',
+                center: [77, 28],
+                zoom: 3
+            });
+            map.addControl(new mapboxgl.NavigationControl());
+            map.on('load', () => {
+                // Add a new source from our GeoJSON data and
+                // set the 'cluster' option to true. GL-JS will
+                // add the point_count property to your source data.
+                map.addSource('reports', {
+                    type: 'geojson',
+                    // Point to GeoJSON data. This example visualizes all M1.0+ reports
+                    // from 12/22/15 to 1/21/16 as logged by USGS' Earthquake hazards program.
+                    data: reports,
+                    cluster: true,
+                    clusterMaxZoom: 14, // Max zoom to cluster points on
+                    clusterRadius: 50 // Radius of each cluster when clustering points (defaults to 50)
+                });
+
+                map.addLayer({
+                    id: 'clusters',
+                    type: 'circle',
+                    source: 'reports',
+                    filter: ['has', 'point_count'],
+                    paint: {
+                        // Use step expressions (https://docs.mapbox.com/mapbox-gl-js/style-spec/#expressions-step)
+                        // with three steps to implement three types of circles:
+                        //   * Blue, 20px circles when point count is less than 100
+                        //   * Yellow, 30px circles when point count is between 100 and 750
+                        //   * Pink, 40px circles when point count is greater than or equal to 750
+                        'circle-color': [
+                            'step',
+                            ['get', 'point_count'],
+                            '#51bbd6',
+                            100,
+                            '#f1f075',
+                            750,
+                            '#f28cb1'
+                        ],
+                        'circle-radius': [
+                            'step',
+                            ['get', 'point_count'],
+                            20,
+                            100,
+                            30,
+                            750,
+                            40
+                        ]
+                    }
+                });
+
+                map.addLayer({
+                    id: 'cluster-count',
+                    type: 'symbol',
+                    source: 'reports',
+                    filter: ['has', 'point_count'],
+                    layout: {
+                        'text-field': '{point_count_abbreviated}',
+                        'text-font': ['DIN Offc Pro Medium', 'Arial Unicode MS Bold'],
+                        'text-size': 12
+                    }
+                });
+
+                map.addLayer({
+                    id: 'unclustered-point',
+                    type: 'circle',
+                    source: 'reports',
+                    filter: ['!', ['has', 'point_count']],
+                    paint: {
+                        'circle-color': '#11b4da',
+                        'circle-radius': 4,
+                        'circle-stroke-width': 1,
+                        'circle-stroke-color': '#fff'
+                    }
+                });
+
+                // inspect a cluster on click
+                map.on('click', 'clusters', (e) => {
+                    const features = map.queryRenderedFeatures(e.point, {
+                        layers: ['clusters']
+                    });
+                    const clusterId = features[0].properties.cluster_id;
+                    map.getSource('reports').getClusterExpansionZoom(
+                        clusterId,
+                        (err, zoom) => {
+                            if (err) return;
+
+                            map.easeTo({
+                                center: features[0].geometry.coordinates,
+                                zoom: zoom
+                            });
+                        }
+                    );
+                });
+
+                // When a click event occurs on a feature in
+                // the unclustered-point layer, open a popup at
+                // the location of the feature, with
+                // description HTML from its properties.
+                map.on('click', 'unclustered-point', (e) => {
+                    const coordinates = e.features[0].geometry.coordinates.slice();
+                    const text = e.features[0].properties.popUp;
+                    // Ensure that if the map is zoomed out such that
+                    // multiple copies of the feature are visible, the
+                    // popup appears over the copy being pointed to.
+                    while (Math.abs(e.lngLat.lng - coordinates[0]) > 180) {
+                        coordinates[0] += e.lngLat.lng > coordinates[0] ? 360 : -360;
+                    }
+
+                    new mapboxgl.Popup()
+                        .setLngLat(coordinates)
+                        .setHTML(
+                            text
+                        )
+                        .addTo(map);
+                });
+
+                map.on('mouseenter', 'clusters', () => {
+                    map.getCanvas().style.cursor = 'pointer';
+                });
+                map.on('mouseleave', 'clusters', () => {
+                    map.getCanvas().style.cursor = '';
+                });
+            });
+                // });
+        </script> -->
+        <script>
+            let mapToken = '<%- process.env.MAP_TOKEN%>';
+            let reports = '<%-JSON.stringify(reports)%>'
+        </script>
+        <script src="../js/addHeadingEffect.js"></script>
+        <script src="../js/addClusterMap.js"></script>
+</body>
+
+</html>

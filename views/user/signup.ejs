@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../css/customStyles.css">
+    <title>Login</title>
+</head>
+
+<body>
+    <%- include('../partials/navbar') %>
+        <div class="container d-flex flex-column h-100">
+            <div class="container w-50 h-50 shadow border p-4 mt-5">
+                <div class="mb-3">
+                    <h1 class="display-4">Sign Up</h1>
+                </div>
+                <form action="/user" method="POST" novalidate class="needs-validation">
+                    <div class="mb-4">
+                        <label for="firstName" class="label-name">First Name</label>
+                        <input id="firstName" type="text" placeholder="First Name" name="firstName" autocomplete="off"
+                            required class="form-control mt-2">
+                    </div>
+                    <div class="mb-4">
+                        <label for="lastName" class="label-name">Last Name</label>
+                        <input id="lastName" type="text" placeholder="Last Name" name="lastName" autocomplete="off"
+                            required class="form-control mt-2">
+                    </div>
+                    <div class="mb-4">
+                        <label for="username" class="label-name">Username or Email</label>
+                        <input id="username" type="text" placeholder="Username" name="username" autocomplete="off"
+                            required class="form-control mt-2">
+                    </div>
+                    <div class="mb-4">
+                        <label for="password" class="label-name">Password</label>
+                        <input id="password" type="password" placeholder="Password" name="password" required
+                            class="form-control mt-2">
+                    </div>
+                    <button type="submit" class="btn btn-outline-primary">Sign Up</button>
+                </form>
+            </div>
+
+        </div>
+        <script src="/js/bootstrap.min.js"></script>
+        <script src="js/validateForms.js"></script>
+        <script src="../js/addHeadingEffect.js"></script>
+</body>
+
+</html>

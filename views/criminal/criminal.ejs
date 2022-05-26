@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+    <style>
+        .nav {
+            cursor: pointer;
+        }
+
+        .nav-alt {
+            cursor: pointer;
+        }
+
+        .hidden {
+            display: none;
+        }
+    </style>
+    <title>Suspect Details</title>
+</head>
+
+<body class="vh-100 d-flex flex-column justify-content-between">
+    <%- include('../partials/navbar') %>
+        <div class="container">
+            <div class="container w-50 shadow border p-4 mt-5 mb-5">
+                <div class="mb-3">
+                    <h1 class="display-4">Add Suspect Details</h1>
+                </div>
+                <form action="/criminal/<%= reportId %>" method="POST" class="h-100 needs-validation" novalidate>
+                    <div class="mb-3">
+                        <label for="Sname" class="form-label">Suspect Name</label>
+                        <input id="Sname" type="text" name="Sname" autocomplete="off" required class="form-control">
+                    </div>
+                    <div class="mb-3">
+                        <label for="age" class="form-label">Age</label>
+                        <input id="age" type="number" name="age" autocomplete="off" class="form-control" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="height" class="form-label">Height</label>
+                        <input id="height" type="number" name="height" autocomplete="off" class="form-control" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary" id="next">Submit</button>
+                </form>
+            </div>
+
+        </div>
+        <%- include('../partials/footer') %>
+
+            <script src="/js/bootstrap.min.js"></script>
+            <script>(() => {
+                    'use strict'
+
+                    const forms = document.querySelectorAll('.needs-validation')
+
+                    // Loop over them and prevent submission
+                    Array.from(forms).forEach(form => {
+                        form.addEventListener('submit', event => {
+                            if (!form.checkValidity()) {
+                                event.preventDefault()
+                                event.stopPropagation()
+                            }
+
+                            form.classList.add('was-validated')
+                        }, false)
+                    })
+                })()</script>
+            <script>
+                let navBrand = document.querySelector('.nav')
+                let navBrandAlt = document.querySelector('.nav-alt')
+
+                navBrand.addEventListener('click', () => {
+                    navBrand.classList.toggle('hidden');
+                    navBrandAlt.classList.toggle('hidden');
+                })
+                navBrandAlt.addEventListener('click', () => {
+                    navBrand.classList.toggle('hidden');
+                    navBrandAlt.classList.toggle('hidden');
+                })
+            </script>
+</body>
+
+</html>

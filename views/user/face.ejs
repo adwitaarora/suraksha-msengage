@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../css/bootstrap.min.css">
+    <link rel="stylesheet" href="../css/customStyles.css">
+    <style>
+        #uploadedImage {
+            width: 400px;
+            height: 400px;
+        }
+    </style>
+    <title>Facial Scan</title>
+</head>
+
+<body class="d-flex flex-column">
+    <%- include('../partials/navbar') %>
+
+        <div class="row">
+            <h1 class="display-1 text-center mb-4 border-bottom p-3">Face Scan</h1>
+        </div>
+        <div class="row" style="padding: 0px 130px; height: 65%;">
+            <div class="col ms-5 d-flex flex-column ps-5 pe-5 justify-content-between border-end">
+                <h1 class="display-4 ms-4">Add Photos</h1>
+                <form action="/face/check-face" method="post" enctype="multipart/form-data">
+                    <img id="uploadedImage" />
+                    <input type="file" name="face" id="face" class="ms-5">
+                    <button class="btn btn-outline-primary submit w-50 ms-5">Add Image</button>
+                    <button class="btn btn-primary hidden loading ms-5 w-50" type="button" disabled>
+                        <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                        Loading...
+                    </button>
+                </form>
+            </div>
+            <div class="col ms-5 d-flex flex-column ps-5 pe-5">
+                <div class="row">
+                    <h1 class="display-4 ms-4 mb-3">Matches</h1>
+                </div>
+                <% if(result==true){ %>
+                    <% if(found==true){ %>
+                        <div class="row">
+                            <div class="alert alert-success d-flex align-items-center" role="alert">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="green"
+                                    class="bi bi-check-circle-fill me-2" viewBox="0 0 16 16">
+                                    <path
+                                        d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z" />
+                                </svg>
+                                <div>
+                                    Match found
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div id="carouselExampleCaptions" class="carousel slide" data-bs-ride="false">
+                                <div class="carousel-indicators">
+                                    <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="0"
+                                        class="active" aria-current="true" aria-label="Slide 1"></button>
+                                    <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="1"
+                                        aria-label="Slide 2"></button>
+                                    <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="2"
+                                        aria-label="Slide 3"></button>
+                                </div>
+                                <div class="carousel-inner">
+                                    <% criminal.faces.forEach((face, i)=> {%>
+                                        <div class="carousel-item <%= i===0 ? 'active':'' %> ">
+                                            <img src="<%= face.url %> " class="d-block w-100 h-100" alt="..."
+                                                style="max-height: 400px;">
+                                        </div>
+                                        <% }) %>
+                                </div>
+                                <% if (criminal.faces.length> 1) { %>
+                                    <button class="carousel-control-prev" type="button"
+                                        data-bs-target="#carouselExampleCaptions" data-bs-slide="prev">
+                                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                        <span class="visually-hidden">Previous</span>
+                                    </button>
+                                    <button class="carousel-control-next" type="button"
+                                        data-bs-target="#carouselExampleCaptions" data-bs-slide="next">
+                                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                        <span class="visually-hidden">Next</span>
+                                    </button>
+                                    <% } %>
+                            </div>
+                            <div class="row mt-3">
+                                <div class="col ms-3">
+                                    <a href="/report/<%= criminal.report %>">
+                                        <button type="button" class="btn btn-primary">Case Details</button>
+                                    </a>
+                                </div>
+                                <div class="col">
+                                    <a href="/criminal/show/<%= criminal.id %>">
+                                        <button type="button" class="btn btn-primary">Criminal Details</button>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                        <% }else{ %>
+                            <div class="alert alert-danger d-flex align-items-center" role="alert">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="red"
+                                    class="bi bi-x-circle-fill me-2" viewBox="0 0 16 16">
+                                    <path
+                                        d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM5.354 4.646a.5.5 0 1 0-.708.708L7.293 8l-2.647 2.646a.5.5 0 0 0 .708.708L8 8.707l2.646 2.647a.5.5 0 0 0 .708-.708L8.707 8l2.647-2.646a.5.5 0 0 0-.708-.708L8 7.293 5.354 4.646z" />
+                                </svg>
+                                <div>
+                                    No matches found
+                                </div>
+                            </div>
+                            <% } %>
+                                <% } %>
+            </div>
+        </div>
+        <div class="flex-end mt-5">
+            <%- include('../partials/footer') %>
+        </div>
+
+        <script src="/js/bootstrap.min.js"></script>
+        <script>
+            let submitButton = document.querySelector('.submit')
+            let loadingButton = document.querySelector('.loading')
+
+            submitButton.addEventListener('click', () => {
+                submitButton.classList.toggle('hidden');
+                loadingButton.classList.toggle('hidden');
+            })
+
+            let face = document.querySelector('#face')
+            let uploadedImage = document.querySelector('#uploadedImage')
+            face.onchange = evt => {
+                const [file] = face.files
+                if (file) {
+                    uploadedImage.src = URL.createObjectURL(file)
+                }
+            }
+        </script>
+        <script src="../js/addHeadingEffect.js"></script>
+</body>
+
+</html>

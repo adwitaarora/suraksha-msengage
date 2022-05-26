@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+    <script src='https://api.mapbox.com/mapbox-gl-js/v2.6.0/mapbox-gl.js'></script>
+    <link href='https://api.mapbox.com/mapbox-gl-js/v2.6.0/mapbox-gl.css' rel='stylesheet' />
+    <link rel="stylesheet" href="../css/customStyles.css">
+    <style>
+        #map {
+            height: 90%;
+            width: 100%;
+        }
+    </style>
+    <title>Dashboard</title>
+</head>
+
+<body class="vh-100 d-flex flex-column justify-content-between">
+    <%- include('../partials/navbar') %>
+        <section class="d-flex row h-100 mb-5 mt-3">
+            <div class="col-6 m-4 h-100 overflow-auto">
+                <h1 class="m-2 text-center">Open Cases</h1>
+                <div class="overflow-auto">
+                    <ul class="list-unstyled">
+                        <% for(const report of reports) {%>
+                            <li>
+                                <div class="row m-2">
+                                    <div class="col">
+                                        <a href="/report/<%= report.id %>" class="text-decoration-none lead">
+                                            <p class="col">
+                                                <%= report.crime %>
+                                            </p>
+                                        </a>
+                                        <p>
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="green"
+                                                class="bi bi-geo-alt m-1" viewBox="0 0 16 16">
+                                                <path
+                                                    d="M12.166 8.94c-.524 1.062-1.234 2.12-1.96 3.07A31.493 31.493 0 0 1 8 14.58a31.481 31.481 0 0 1-2.206-2.57c-.726-.95-1.436-2.008-1.96-3.07C3.304 7.867 3 6.862 3 6a5 5 0 0 1 10 0c0 .862-.305 1.867-.834 2.94zM8 16s6-5.686 6-10A6 6 0 0 0 2 6c0 4.314 6 10 6 10z" />
+                                                <path
+                                                    d="M8 8a2 2 0 1 1 0-4 2 2 0 0 1 0 4zm0 1a3 3 0 1 0 0-6 3 3 0 0 0 0 6z" />
+                                            </svg>
+                                            <%= report.address %>
+                                        </p>
+                                    </div>
+                                    <div class="col d-flex flex-column align-items-center">
+                                        <% if(report.isClosed===true){ %>
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="green"
+                                                class="bi bi-check-circle-fill" viewBox="0 0 16 16">
+                                                <path
+                                                    d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z" />
+                                            </svg>
+                                            <% } else if(report.priority===1 ){ %>
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                                                    fill="red" class="bi bi-exclamation-circle-fill"
+                                                    viewBox="0 0 16 16">
+                                                    <path
+                                                        d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM8 4a.905.905 0 0 0-.9.995l.35 3.507a.552.552 0 0 0 1.1 0l.35-3.507A.905.905 0 0 0 8 4zm.002 6a1 1 0 1 0 0 2 1 1 0 0 0 0-2z" />
+                                                </svg>
+                                                <% }else if(report.priority===2 ) {%>
+                                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                                                        fill="orange" class="bi bi-exclamation-circle-fill"
+                                                        viewBox="0 0 16 16">
+                                                        <path
+                                                            d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM8 4a.905.905 0 0 0-.9.995l.35 3.507a.552.552 0 0 0 1.1 0l.35-3.507A.905.905 0 0 0 8 4zm.002 6a1 1 0 1 0 0 2 1 1 0 0 0 0-2z" />
+                                                    </svg>
+                                                    <% }else{%>
+                                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                                                            fill="yellow" class="bi bi-exclamation-circle-fill"
+                                                            viewBox="0 0 16 16">
+                                                            <path
+                                                                d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM8 4a.905.905 0 0 0-.9.995l.35 3.507a.552.552 0 0 0 1.1 0l.35-3.507A.905.905 0 0 0 8 4zm.002 6a1 1 0 1 0 0 2 1 1 0 0 0 0-2z" />
+                                                        </svg>
+                                                        <% } %>
+                                                            <a href="/report/<%= report.id %>"
+                                                                class="text-decoration-none text-center pt-4">
+                                                                <button class="btn btn-outline-success">
+                                                                    <% if(report.isClosed) {%>
+                                                                        Case Details
+                                                                        <% }else{ %>
+                                                                            Resolve
+                                                                            <% } %>
+                                                                </button>
+                                                            </a>
+                                    </div>
+
+
+                                </div>
+                            </li>
+                            <% } %>
+                    </ul>
+                </div>
+            </div>
+            <div class="col text-center m-4">
+                <h1>Map</h1>
+                <div id="map" class="align-self-center"></div>
+            </div>
+        </section>
+        <div class="mt-5">
+            <%- include('../partials/footer') %>
+        </div>
+        <script src="/js/bootstrap.min.js"></script>
+        <script>
+            let mapToken = '<%- process.env.MAP_TOKEN%>';
+            let reports = '<%-JSON.stringify(reports)%>'
+        </script>
+        <script src="../js/addClusterMap.js"></script>
+        <script src="../js/addHeadingEffect.js"></script>
+
+</body>
+
+</html>

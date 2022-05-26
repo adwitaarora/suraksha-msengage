@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./css/bootstrap.min.css">
+    <link rel="stylesheet" href="./css/customStyles.css">
+    <title>Home</title>
+</head>
+
+
+
+<body class="vh-100 text-center d-flex flex-column justify-content-between">
+    <%- include('./partials/navbar') %>
+        <main role="main" class="inner cover">
+            <div class="cover-heading m-3 display-1">
+                <div class="parent-div">
+                    सुरक्षा
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="grey"
+                        class="bi bi-toggle-off name-svg bottom-0" viewBox="0 0 16 16">
+                        <path
+                            d="M11 4a4 4 0 0 1 0 8H8a4.992 4.992 0 0 0 2-4 4.992 4.992 0 0 0-2-4h3zm-6 8a4 4 0 1 1 0-8 4 4 0 0 1 0 8zM0 8a5 5 0 0 0 5 5h6a5 5 0 0 0 0-10H5a5 5 0 0 0-5 5z" />
+                    </svg>
+                </div>
+                <div class="parent-div-alt hidden">
+                    Suraksha
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="green"
+                        class="bi bi-toggle-on name-svg-alt" viewBox="0 0 16 16">
+                        <path d="M5 3a5 5 0 0 0 0 10h6a5 5 0 0 0 0-10H5zm6 9a4 4 0 1 1 0-8 4 4 0 0 1 0 8z" />
+                    </svg>
+                </div>
+            </div>
+            <p class="lead m-3">
+                A Facial Recognition Project built for the Microsoft Engage Program
+            </p>
+            <p class="lead m-3">
+                <a href="user/signup" class="btn btn-lg btn-primary m-2">Sign Up</a>
+            </p>
+        </main>
+        <footer>
+            <%- include('./partials/footer') %>
+        </footer>
+        <script src="/js/bootstrap.min.js"></script>
+        <script src="./js/addHeadingEffect.js"></script>
+</body>
+
+
+</html>

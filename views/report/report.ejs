@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script type="text/javascript"
+        src="https://maps.googleapis.com/maps/api/js?key=<%-process.env.GOOGLE_MAP_TOKEN%>"></script>
+    <script src="https://unpkg.com/location-picker/dist/location-picker.min.js"></script>
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../css/customStyles.css">
+    <title>Add Report</title>
+</head>
+
+<body>
+    <%- include('../partials/navbar') %>
+        <div class="container h-100">
+            <div class="container w-50 shadow border p-4 mt-5 mb-5">
+                <div class="mb-3">
+                    <h1 class="display-4">Add First Information Report</h1>
+                </div>
+                <form action="/report" method="POST" class="h-100 needs-validation" novalidate>
+                    <div class="mb-3">
+                        <label for="Cname" class="form-label">Complainant Name</label>
+                        <input id="Cname" type="text" name="Cname" autocomplete="off" required class="form-control">
+                    </div>
+                    <div class="mb-3">
+                        <label for="datetime" class="form-label">Date and Time of Incident</label>
+                        <input id="datetime" type="datetime-local" name="datetime" autocomplete="off"
+                            class="form-control" required>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Location of Incident</label>
+                        <div id="map" style="height: 300px;"></div>
+                        <br>
+                        <button type="button" id="confirmPosition" class="btn btn-outline-primary text-center">Confirm
+                            Position</button>
+                        <br>
+                    </div>
+                    <div class="mb-3 row">
+                        <div class="col">
+                            <label for="latitude">Latitude</label>
+                            <input id="latitude" type="text" name="latitude" required class="form-control">
+                        </div>
+                        <div class="col">
+                            <label for="longitude">Longitude</label>
+                            <input id="longitude" type="text" name="longitude" required class="form-control">
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <label for="crime" class="form-label">Nature of Crime</label>
+                        <select id="crime" name="crime" class="form-select" required>
+                            <option value="Felony">Felony</option>
+                            <option value="Property Crime">Property Crime</option>
+                            <option value="Financial Crime">Financial Crime</option>
+                            <option value="Organised Crime">Organised Crime</option>
+                            <option value="Public Order Crime">Public Order Crime</option>
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <p class="form-label">Priority</p>
+                        <div class="btn-group w-100" role="group" aria-label="Basic radio toggle button group">
+                            <input type="radio" class="btn-check" name="priority" id="btnradio1" autocomplete="off"
+                                value=3>
+                            <label class="btn btn-outline-warning" for="btnradio1">Third Priority</label>
+
+                            <input type="radio" class="btn-check" name="priority" id="btnradio2" autocomplete="off"
+                                value=2 required>
+                            <label class="btn btn-outline-dark" for="btnradio2">Second
+                                Priority</label>
+
+                            <input type="radio" class="btn-check" name="priority" id="btnradio3" autocomplete="off"
+                                value=1>
+                            <label class="btn btn-outline-danger" for="btnradio3">First Priority</label>
+                        </div>
+                    </div>
+                    <button type="submit" class="btn btn-primary" id="next">Next</button>
+                </form>
+            </div>
+
+        </div>
+        <%- include('../partials/footer') %>
+            <script src="/js/bootstrap.min.js"></script>
+            <script src="js/addLocationReport.js"></script>
+            <script src="js/validateForms.js"></script>
+            <script src="../js/addHeadingEffect.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../css/customStyles.css">
+    <title>Login</title>
+</head>
+
+<body class="vh-100">
+    <%- include('../partials/navbar') %>
+        <% if(error && error.length){ %>
+            <div class="container w-50 mt-2 p-4">
+                <div class="alert alert-danger" role="alert">
+                    <%= error %>
+                </div>
+            </div>
+
+            <% } %>
+                <div class="container d-flex flex-column h-100">
+                    <div class="container w-50 h-50 shadow border p-4 mt-5">
+                        <div class="mb-3">
+                            <h1 class="display-4">Log in to your account</h1>
+                        </div>
+                        <div class="mb-3">
+                            <h2 class="lead">Don't have an account? <a href="/user/signup"
+                                    class="text-decoration-none">Sign
+                                    Up</a></h2>
+                        </div>
+                        <form action="/user/login" method="POST" class="needs-validation" novalidate>
+                            <div class="mb-3">
+                                <label for="exampleInputEmail1" class="form-label">Email address</label>
+                                <input type="username" class="form-control" id="exampleInputEmail1" name="username"
+                                    required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="exampleInputPassword1" class="form-label">Password</label>
+                                <input type="password" class="form-control" id="exampleInputPassword1" name="password"
+                                    required>
+                            </div>
+                            <button type="submit" class="btn btn-outline-primary">Log In</button>
+                        </form>
+                    </div>
+
+                </div>
+                <script src="/js/bootstrap.min.js"></script>
+                <script src="/js/validateForms.js"></script>
+                <script src="../js/addHeadingEffect.js"></script>
+</body>
+
+</html>

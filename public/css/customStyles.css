@@ -1,0 +1,53 @@
+@import url('https://fonts.googleapis.com/css2?family=Mukta:wght@400;500&display=swap');
+
+.nav-brand,
+.head-name {
+    font-family: 'Mukta', sans-serif;
+}
+
+textarea:focus,
+input:focus {
+    outline: none;
+}
+
+.btn-outline-dark {
+    background-color: white;
+    color: rgb(255, 123, 0);
+    border-color: rgb(255, 123, 0);
+}
+
+.btn-outline-dark:hover,
+.btn-outline-dark:active,
+.btn-outline-dark:visited,
+.btn-outline-dark:focus {
+    background-color: rgb(255, 123, 0);
+    border-color: rgb(255, 123, 0);
+    border-color: rgb(255, 123, 0);
+}
+
+.btn-check:checked+.btn-outline-dark {
+    background-color: rgb(255, 123, 0);
+    border-color: rgb(255, 123, 0);
+    border-color: rgb(255, 123, 0);
+    box-shadow: 0 0 0 0.25rem rgba(255, 123, 0, 0.483);
+}
+
+.name-svg {
+    cursor: pointer;
+}
+
+.name-svg-alt {
+    cursor: pointer;
+}
+
+.nav {
+    cursor: pointer;
+}
+
+.nav-alt {
+    cursor: pointer;
+}
+
+.hidden {
+    display: none;
+}

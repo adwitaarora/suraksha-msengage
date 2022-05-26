@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+    <script src='https://api.mapbox.com/mapbox-gl-js/v2.6.0/mapbox-gl.js'></script>
+    <link href='https://api.mapbox.com/mapbox-gl-js/v2.6.0/mapbox-gl.css' rel='stylesheet' />
+    <link rel="stylesheet" href="../css/customStyles.css">
+    <title>Search</title>
+</head>
+
+<body class="vh-100 d-flex flex-column justify-content-between">
+    <%- include('../partials/navbar') %>
+        <div class="m-3 row border w-75 mx-auto p-2">
+            <form action="/search" method="POST">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="15" fill="grey"
+                    class="bi bi-search mb-1 me-2 search-bar" viewBox="0 0 16 16">
+                    <path
+                        d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z" />
+                </svg>
+                <input type="text" name="query" id="query" class="w-75" placeholder="Search" style="border: none;">
+            </form>
+        </div>
+        <% if(searched){ %>
+            <div class="row h-75">
+                <div class="col m-3 h-100 overflow-auto">
+                    <h1 class="display-3 text-center">Reports</h1>
+                    <h2 class="m-3 lead fw-bold">Complainant Name : <%= query %>
+                    </h2>
+                    <% for (let report of reports) {%>
+                        <div class="border-bottom p-2">
+                            <div>
+                                <a href="report/<%= report.id %> " class="m-3 text-decoration-none">
+                                    <%= report.crime %>
+                                </a>
+                            </div>
+                            <div>
+                                <p class="m-2">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="green"
+                                        class="bi bi-geo-alt m-1" viewBox="0 0 16 16">
+                                        <path
+                                            d="M12.166 8.94c-.524 1.062-1.234 2.12-1.96 3.07A31.493 31.493 0 0 1 8 14.58a31.481 31.481 0 0 1-2.206-2.57c-.726-.95-1.436-2.008-1.96-3.07C3.304 7.867 3 6.862 3 6a5 5 0 0 1 10 0c0 .862-.305 1.867-.834 2.94zM8 16s6-5.686 6-10A6 6 0 0 0 2 6c0 4.314 6 10 6 10z" />
+                                        <path d="M8 8a2 2 0 1 1 0-4 2 2 0 0 1 0 4zm0 1a3 3 0 1 0 0-6 3 3 0 0 0 0 6z" />
+                                    </svg>
+                                    <%= report.address %>
+                                </p>
+                            </div>
+                        </div>
+                        <% } %>
+                </div>
+                <div class="col m-3 h-100 overflow-auto">
+                    <h1 class="display-3 text-center">Criminals</h1>
+                    <h2 class="m-3 lead fw-bold">Suspect Name : <%= query %>
+                    </h2>
+                    <% for (let criminal of criminals) {%>
+                        <div class="border-bottom p-2">
+                            <div>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                    class="bi bi-person-lines-fill" viewBox="0 0 16 16">
+                                    <path
+                                        d="M6 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm-5 6s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H1zM11 3.5a.5.5 0 0 1 .5-.5h4a.5.5 0 0 1 0 1h-4a.5.5 0 0 1-.5-.5zm.5 2.5a.5.5 0 0 0 0 1h4a.5.5 0 0 0 0-1h-4zm2 3a.5.5 0 0 0 0 1h2a.5.5 0 0 0 0-1h-2zm0 3a.5.5 0 0 0 0 1h2a.5.5 0 0 0 0-1h-2z" />
+                                </svg>
+                                <a href="criminal/show/<%= criminal.id %> " class="m-3 text-decoration-none">
+                                    <%= criminal.Sname %>
+                                </a>
+                            </div>
+                            <div>
+                                Age: <%= criminal.age %>
+                            </div>
+                            <div>
+                                Height: <%= criminal.height %>
+
+                            </div>
+                        </div>
+                        <% } %>
+                </div>
+                <div class="col m-3 h-100 overflow-auto">
+                    <h1 class="display-3 text-center">Tips</h1>
+                    <h2 class="m-3 lead fw-bold">Suspect Name : <%= query %>
+                    </h2>
+                    <% for (let tip of tips) {%>
+                        <div class="border-bottom p-2">
+                            <div>
+                                <a href="tips/show/<%= tip.id %> " class="m-3 text-decoration-none">
+                                    <%= tip.crime %>
+                                </a>
+                            </div>
+                            <div>
+                                <p class="m-2">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="green"
+                                        class="bi bi-geo-alt m-1" viewBox="0 0 16 16">
+                                        <path
+                                            d="M12.166 8.94c-.524 1.062-1.234 2.12-1.96 3.07A31.493 31.493 0 0 1 8 14.58a31.481 31.481 0 0 1-2.206-2.57c-.726-.95-1.436-2.008-1.96-3.07C3.304 7.867 3 6.862 3 6a5 5 0 0 1 10 0c0 .862-.305 1.867-.834 2.94zM8 16s6-5.686 6-10A6 6 0 0 0 2 6c0 4.314 6 10 6 10z" />
+                                        <path d="M8 8a2 2 0 1 1 0-4 2 2 0 0 1 0 4zm0 1a3 3 0 1 0 0-6 3 3 0 0 0 0 6z" />
+                                    </svg>
+                                    <%= tip.address %>
+                                </p>
+                            </div>
+                        </div>
+                        <% } %>
+                </div>
+            </div>
+            <% }else{ %>
+                <div class="row h-75">
+                    <div class="col text-center">
+                        <h1 class="display-3">Reports</h1>
+                    </div>
+                    <div class="col text-center">
+                        <h1 class="display-3">Criminals</h1>
+                    </div>
+                    <div class="col text-center">
+                        <h1 class="display-3">Tips</h1>
+                    </div>
+                </div>
+                <% } %>
+                    <div class="row position-absolute bottom-0"></div>
+                    <%- include('../partials/footer') %>
+                    <script src="../js/addHeadingEffect.js"></script>
+
+</body>
+
+</html>
