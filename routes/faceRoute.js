@@ -26,21 +26,25 @@ async function LoadModels() {
 asyncCatch(LoadModels());
 
 
-async function uploadLabeledImages(images, label) {
+async function uploadLabeledImages(image, label) {
     try {
-        let counter = 0;
         const descriptions = [];
-        for (let i = 0; i < images.length; i++) {
-            const img = await canvas.loadImage(images[i]);
-            const detections = await faceapi.detectSingleFace(img).withFaceLandmarks().withFaceDescriptor();
-            descriptions.push(detections.descriptor);
-        }
+        const img = await canvas.loadImage(image);
+        const detections = await faceapi.detectSingleFace(img).withFaceLandmarks().withFaceDescriptor();
+        descriptions.push(detections.descriptor);
 
-        const createFace = new FaceModel({
-            label: label,
-            descriptions: descriptions,
-        });
-        await createFace.save();
+        const faceObject = await FaceModel.find({ label: label });
+        
+        if (faceObject[0]) {
+            faceObject[0].descriptions.push(descriptions);
+            await faceObject[0].save();
+        } else {
+            const createFace = new FaceModel({
+                label: label,
+                descriptions: descriptions,
+            });
+            await createFace.save();
+        }
         return true;
     } catch (error) {
         console.log(error);
@@ -76,29 +80,30 @@ async function getDescriptorsFromDB(image) {
 router.post("/post-face/:id", isLoggedIn, upload.array('face'), asyncCatch(async (req, res) => {
     const { id } = req.params;
     const faces = req.files.map(f => ({ url: f.path, filename: f.filename }));
-    if (req.files.length < 3) {
-        req.flash('error', 'Please add 3 images for best results')
-        res.redirect(`/criminal/update/${id}`);
-    } else {
-        const label = req.body.label;
-        const criminal = await Criminal.findById(id);
-        criminal.faces = faces;
-        await criminal.save();
-        const report = await Report.findById(criminal.report);
+    const label = req.body.label;
+    const criminal = await Criminal.findById(id);
+
+    let counter = 0;
+    for (let i = 0; i < req.files.length; i++) {
+        result = await uploadLabeledImages(req.files[i].path, label);
+        counter++;
+        console.log(`${counter} files uploaded`);
+    }
+    for (let face of faces) {
+        criminal.faces.push(face);
+    }
+    await criminal.save();
+    const report = await Report.findById(criminal.report);
+    if (report.isClosed == false) {
         report.isClosed = true;
         await report.save();
+    }
 
-        const File1 = req.files[0].path
-        const File2 = req.files[1].path
-        const File3 = req.files[2].path
-
-        let result = await uploadLabeledImages([File1, File2, File3], label);
-        if (result) {
-            res.redirect(`/criminal/show/${criminal.id}`);
-        } else {
-            req.flash('error', 'Something went wrong, please try again');
-            res.redirect(`/criminal/update/${id}`);
-        }
+    if (result) {
+        res.redirect(`/criminal/show/${criminal.id}`);
+    } else {
+        req.flash('error', 'Something went wrong, please try again');
+        res.redirect(`/criminal/update/${id}`);
     }
 }))
 
