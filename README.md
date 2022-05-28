@@ -4,8 +4,8 @@ Face recognition project built for the Micrsoft Engage Program
 # Description
 Suraksha is a web application aimed at making the task of running background checks on potential suspects less time consuming and efficient. It also serves a portal for efficient storage and retrieval of data like reports and tips.
 
--[Full Presentation](https://drive.google.com/file/d/1iJqNOSXHx4o-gkcOu88cVYehTlHf575K/view?usp=sharing)
--[Video Demo](https://youtu.be/3nluPScEg6w)
+- [Full Presentation](https://drive.google.com/file/d/1iJqNOSXHx4o-gkcOu88cVYehTlHf575K/view?usp=sharing)
+- [Video Demo](https://youtu.be/3nluPScEg6w)
 
 # Features
 <img width="1440" alt="Screenshot 2022-05-28 at 7 58 20 AM" src="https://user-images.githubusercontent.com/77568281/170806297-196af33e-854b-4fa3-9099-74b617f1f3fa.png">
