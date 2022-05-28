@@ -5,7 +5,6 @@ const criminalSchema = new mongoose.Schema({
     Sname: {
         type: String,
         default: 'Unknown',
-        // required: true
     },
     age: {
         default: 0,
@@ -14,7 +13,6 @@ const criminalSchema = new mongoose.Schema({
     height: {
         default: 0,
         type: Number,
-        // required: true
     },
     report: {
         type: mongoose.Schema.Types.ObjectId,
