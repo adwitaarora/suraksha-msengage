@@ -1,5 +1,5 @@
 # suraksha-msengage
-Face recognition project built for the Micrsoft Engage Program
+Face recognition project built for the Microsoft Engage Program
 
 # Description
 Suraksha is a web application aimed at making the task of running background checks on potential suspects less time consuming and efficient. It also serves a portal for efficient storage and retrieval of data like reports and tips.
